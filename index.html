@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hymn Haven</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         :root {
             --primary: #6C63FF;
@@ -1105,12 +1106,12 @@
     </div>
 
     <script>
-        // Sample hymns data (fallback in case JSON fails to load)
-        const sampleHymns = [
-            {
-                id: 1,
-                title: "Amazing Grace",
-                lyrics: `Amazing grace! How sweet the sound
+    // Sample hymns data (fallback in case JSON fails to load)
+    const sampleHymns = [
+        {
+            id: 1,
+            title: "Amazing Grace",
+            lyrics: `Amazing grace! How sweet the sound
 That saved a wretch like me!
 I once was lost, but now am found;
 Was blind, but now I see.
@@ -1139,13 +1140,13 @@ When we've been there ten thousand years,
 Bright shining as the sun,
 We've no less days to sing God's praise
 Than when we'd first begun.`,
-                audio: "audio/hymn1.mp3",
-                mood: "worshipful"
-            },
-            {
-                id: 2,
-                title: "How Great Thou Art",
-                lyrics: `O Lord my God, when I in awesome wonder
+            audio: "audio/hymn1.mp3",
+            mood: "worshipful"
+        },
+        {
+            id: 2,
+            title: "How Great Thou Art",
+            lyrics: `O Lord my God, when I in awesome wonder
 Consider all the works Thy Hand hath made,
 I see the stars, I hear the mighty thunder,
 Thy pow'r throughout the universe displayed;
@@ -1176,13 +1177,13 @@ Then I shall bow in humble adoration
 And there proclaim, my God, how great Thou art!
 
 (Refrain)`,
-                audio: "audio/hymn2.mp3",
-                mood: "worshipful"
-            },
-            {
-                id: 3,
-                title: "Great Is Thy Faithfulness",
-                lyrics: `Great is Thy faithfulness, O God my Father;
+            audio: "audio/hymn2.mp3",
+            mood: "worshipful"
+        },
+        {
+            id: 3,
+            title: "Great Is Thy Faithfulness",
+            lyrics: `Great is Thy faithfulness, O God my Father;
 There is no shadow of turning with Thee;
 Thou changest not, Thy compassions, they fail not;
 As Thou hast been, Thou forever will be.
@@ -1206,13 +1207,13 @@ Strength for today and bright hope for tomorrow,
 Blessings all mine, with ten thousand beside!
 
 (Refrain)`,
-                audio: "audio/hymn3.mp3",
-                mood: "calm"
-            },
-            {
-                id: 4,
-                title: "It Is Well With My Soul",
-                lyrics: `When peace, like a river, attendeth my way,
+            audio: "audio/hymn3.mp3",
+            mood: "calm"
+        },
+        {
+            id: 4,
+            title: "It Is Well With My Soul",
+            lyrics: `When peace, like a river, attendeth my way,
 When sorrows like sea billows roll;
 Whatever my lot, Thou hast taught me to say,
 It is well, it is well with my soul.
@@ -1241,13 +1242,13 @@ The trump shall resound, and the Lord shall descend,
 Even so, it is well with my soul.
 
 (Refrain)`,
-                audio: "audio/hymn4.mp3",
-                mood: "calm"
-            },
-            {
-                id: 5,
-                title: "Blessed Assurance",
-                lyrics: `Blessed assurance, Jesus is mine!
+            audio: "audio/hymn4.mp3",
+            mood: "calm"
+        },
+        {
+            id: 5,
+            title: "Blessed Assurance",
+            lyrics: `Blessed assurance, Jesus is mine!
 Oh, what a foretaste of glory divine!
 Heir of salvation, purchase of God,
 Born of His Spirit, washed in His blood.
@@ -1271,598 +1272,615 @@ Watching and waiting, looking above,
 Filled with His goodness, lost in His love.
 
 (Refrain)`,
-                audio: "audio/hymn5.mp3",
-                mood: "happy"
-            }
-        ];
-
-        // App State
-        let hymns = [];
-        let currentHymn = null;
-        let audio = new Audio();
-        let isPlaying = false;
-        let currentTime = 0;
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        let notes = JSON.parse(localStorage.getItem('notes')) || {};
-        let moods = JSON.parse(localStorage.getItem('moods')) || {};
-        let currentMoodFilter = 'all';
-
-        // DOM Elements
-        const hymnsContainer = document.getElementById('hymns-container');
-        const favoritesContainer = document.getElementById('favorites-container');
-        const notesContainer = document.getElementById('notes-container');
-        const moodContainer = document.getElementById('mood-container');
-        const hymnDetail = document.getElementById('hymn-detail');
-        const detailTitle = document.getElementById('detail-title');
-        const lyricsContainer = document.getElementById('lyrics-container');
-        const playBtn = document.getElementById('play-btn');
-        const progressBar = document.getElementById('progress-bar');
-        const progressContainer = document.getElementById('progress-container');
-        const currentTimeEl = document.getElementById('current-time');
-        const durationEl = document.getElementById('duration');
-        const favoriteBtn = document.getElementById('favorite-btn');
-        const notesBtn = document.getElementById('notes-btn');
-        const notesModal = document.getElementById('notes-modal');
-        const notesTextarea = document.getElementById('notes-textarea');
-        const notesSave = document.getElementById('notes-save');
-        const notesCancel = document.getElementById('notes-cancel');
-        const notesClose = document.getElementById('notes-close');
-        const detailClose = document.getElementById('detail-close');
-        const searchInput = document.getElementById('search-input');
-        const searchBtn = document.getElementById('search-btn');
-        const toast = document.getElementById('toast');
-        const toastMessage = document.getElementById('toast-message');
-        const themeToggle = document.getElementById('theme-toggle');
-        const navItems = document.querySelectorAll('.nav-item');
-        const pages = document.querySelectorAll('.page');
-        const moodOptions = document.querySelectorAll('.mood-option');
-        const miniPlayer = document.getElementById('mini-player');
-        const miniPlayerTitle = document.getElementById('mini-player-title');
-        const miniPlayBtn = document.getElementById('mini-play-btn');
-        const miniPlayerClose = document.getElementById('mini-player-close');
-
-        // Initialize App
-        function initApp() {
-            loadHymns();
-            setupEventListeners();
-            updateFavoritesDisplay();
-            updateNotesDisplay();
-            updateMoodDisplay();
-            applyStoredTheme();
+            audio: "audio/hymn5.mp3",
+            mood: "happy"
         }
+    ];
 
-        // Load hymns from JSON or use sample data
-        function loadHymns() {
-            // Try to load from JSON file first
-            fetch('data/hymns.json')
-                .then(response => {
-                    if (!response.ok) throw new Error('Failed to load hymns.json');
-                    return response.json();
-                })
-                .then(data => {
-                    hymns = data;
-                    renderHymns(hymns, hymnsContainer);
-                })
-                .catch(error => {
-                    console.error('Error loading hymns:', error);
-                    // Use sample data if JSON fails to load
-                    hymns = sampleHymns;
-                    renderHymns(hymns, hymnsContainer);
-                    showToast('Using sample hymns data');
-                });
-        }
+    // App State
+    let hymns = [];
+    let currentHymn = null;
+    let audio = new Audio();
+    let isPlaying = false;
+    let currentTime = 0;
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    let notes = JSON.parse(localStorage.getItem('notes')) || {};
+    let moods = JSON.parse(localStorage.getItem('moods')) || {};
+    let currentMoodFilter = 'all';
 
-        // Render hymns to a container
-        function renderHymns(hymnsArray, container) {
-            if (!container) return;
-            
-            if (hymnsArray.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-music"></i>
-                        <h3>No hymns found</h3>
-                        <p>Try adjusting your search or filter</p>
-                    </div>
-                `;
-                return;
+    // DOM Elements
+    const hymnsContainer = document.getElementById('hymns-container');
+    const favoritesContainer = document.getElementById('favorites-container');
+    const notesContainer = document.getElementById('notes-container');
+    const moodContainer = document.getElementById('mood-container');
+    const hymnDetail = document.getElementById('hymn-detail');
+    const detailTitle = document.getElementById('detail-title');
+    const lyricsContainer = document.getElementById('lyrics-container');
+    const playBtn = document.getElementById('play-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+    const currentTimeEl = document.getElementById('current-time');
+    const durationEl = document.getElementById('duration');
+    const favoriteBtn = document.getElementById('favorite-btn');
+    const notesBtn = document.getElementById('notes-btn');
+    const notesModal = document.getElementById('notes-modal');
+    const notesTextarea = document.getElementById('notes-textarea');
+    const notesSave = document.getElementById('notes-save');
+    const notesCancel = document.getElementById('notes-cancel');
+    const notesClose = document.getElementById('notes-close');
+    const detailClose = document.getElementById('detail-close');
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+    const themeToggle = document.getElementById('theme-toggle');
+    const navItems = document.querySelectorAll('.nav-item');
+    const pages = document.querySelectorAll('.page');
+    const moodOptions = document.querySelectorAll('.mood-option');
+    const miniPlayer = document.getElementById('mini-player');
+    const miniPlayerTitle = document.getElementById('mini-player-title');
+    const miniPlayBtn = document.getElementById('mini-play-btn');
+    const miniPlayerClose = document.getElementById('mini-player-close');
+
+    // Initialize App
+    function initApp() {
+        loadHymns();
+        setupEventListeners();
+        updateFavoritesDisplay();
+        updateNotesDisplay();
+        updateMoodDisplay();
+        applyStoredTheme();
+    }
+
+    // Load hymns from hymns.json
+    async function loadHymns() {
+        try {
+            const response = await fetch('data/hymns.json');
+            hymns = await response.json();
+
+            // Fetch lyrics for each hymn
+            for (let hymn of hymns) {
+                try {
+                    const textResponse = await fetch(hymn.lyricsFile);
+                    if (textResponse.ok) {
+                        const lyricsText = await textResponse.text();
+                        hymn.lyrics = lyricsText; // Add lyrics into memory
+                    } else {
+                        console.warn(`Could not load lyrics for hymn ${hymn.id}: ${hymn.lyricsFile}`);
+                        hymn.lyrics = "Lyrics not available"; // Fallback text
+                    }
+                } catch (error) {
+                    console.warn(`Error loading lyrics for hymn ${hymn.id}:`, error);
+                    hymn.lyrics = "Lyrics not available"; // Fallback text
+                }
             }
 
-            container.innerHTML = hymnsArray.map(hymn => `
-                <div class="hymn-card" data-id="${hymn.id}">
-                    <div class="hymn-number">${hymn.id}</div>
-                    <div class="hymn-image">
-                        <i class="fas fa-music"></i>
-                    </div>
-                    <div class="hymn-content">
-                        <h3 class="hymn-title">${hymn.title}</h3>
-                        <p class="hymn-preview">${hymn.lyrics.substring(0, 100)}...</p>
-                        <div class="hymn-actions">
-                            <button class="favorite ${favorites.includes(hymn.id) ? 'active' : ''}" data-id="${hymn.id}">
-                                <i class="${favorites.includes(hymn.id) ? 'fas' : 'far'} fa-heart"></i>
-                                Favorite
-                            </button>
-                            <button class="play" data-id="${hymn.id}">
-                                <i class="fas fa-play"></i>
-                                Play
-                            </button>
-                        </div>
+            renderHymns(hymns, hymnsContainer);
+        } catch (error) {
+            console.error('Error loading hymns:', error);
+            // Use sample data if JSON fails to load
+            hymns = sampleHymns;
+            renderHymns(hymns, hymnsContainer);
+            showToast('Failed to load hymns, using sample data');
+        }
+    }
+
+    // Filter hymns (by number, title, or lyrics)
+    function filterHymns() {
+        const query = searchInput.value.toLowerCase().trim();
+        if (!query) {
+            renderHymns(hymns, hymnsContainer);
+            return;
+        }
+
+        const filteredHymns = hymns.filter(hymn => {
+            const hymnIdString = hymn.id.toString();
+            const formattedId = hymnIdString.padStart(3, '0');
+            return (
+                hymn.title.toLowerCase().includes(query) ||
+                (hymn.lyrics && hymn.lyrics.toLowerCase().includes(query)) ||
+                hymnIdString === query ||
+                formattedId === query
+            );
+        });
+
+        renderHymns(filteredHymns, hymnsContainer);
+    }
+
+    // Render hymns to a container
+    function renderHymns(hymnsArray, container) {
+        if (!container) return;
+        
+        if (hymnsArray.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-music"></i>
+                    <h3>No hymns found</h3>
+                    <p>Try adjusting your search or filter</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = hymnsArray.map(hymn => `
+            <div class="hymn-card" data-id="${hymn.id}">
+                <div class="hymn-number">${hymn.id}</div>
+                <div class="hymn-image">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="hymn-content">
+                    <h3 class="hymn-title">${hymn.title}</h3>
+                    <p class="hymn-preview">${hymn.lyrics ? hymn.lyrics.substring(0, 100) + '...' : 'Lyrics not available'}</p>
+                    <div class="hymn-actions">
+                        <button class="favorite ${favorites.includes(hymn.id) ? 'active' : ''}" data-id="${hymn.id}">
+                            <i class="${favorites.includes(hymn.id) ? 'fas' : 'far'} fa-heart"></i>
+                            Favorite
+                        </button>
+                        <button class="play" data-id="${hymn.id}">
+                            <i class="fas fa-play"></i>
+                            Play
+                        </button>
                     </div>
                 </div>
-            `).join('');
+            </div>
+        `).join('');
 
-            // Add event listeners to the newly created hymn cards
-            container.querySelectorAll('.hymn-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    if (!e.target.closest('.hymn-actions')) {
-                        const hymnId = parseInt(card.getAttribute('data-id'));
-                        openHymnDetail(hymnId);
-                    }
-                });
-            });
-
-            container.querySelectorAll('.favorite').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const hymnId = parseInt(btn.getAttribute('data-id'));
-                    toggleFavorite(hymnId);
-                });
-            });
-
-            container.querySelectorAll('.play').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const hymnId = parseInt(btn.getAttribute('data-id'));
+        // Add event listeners to the newly created hymn cards
+        container.querySelectorAll('.hymn-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.hymn-actions')) {
+                    const hymnId = parseInt(card.getAttribute('data-id'));
                     openHymnDetail(hymnId);
-                    setTimeout(() => {
-                        togglePlayback();
-                    }, 300);
-                });
+                }
             });
+        });
+
+        container.querySelectorAll('.favorite').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const hymnId = parseInt(btn.getAttribute('data-id'));
+                toggleFavorite(hymnId);
+            });
+        });
+
+        container.querySelectorAll('.play').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const hymnId = parseInt(btn.getAttribute('data-id'));
+                openHymnDetail(hymnId);
+                setTimeout(() => {
+                    togglePlayback();
+                }, 300);
+            });
+        });
+    }
+
+    // Open hymn detail view
+    function openHymnDetail(hymnId) {
+        currentHymn = hymns.find(h => h.id === hymnId);
+        if (!currentHymn) return;
+
+        detailTitle.textContent = currentHymn.title;
+        lyricsContainer.textContent = currentHymn.lyrics || "Lyrics not available";
+        
+        // Update favorite button state
+        const isFavorite = favorites.includes(hymnId);
+        favoriteBtn.innerHTML = `
+            <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>
+            <span>${isFavorite ? 'Remove from' : 'Add to'} Favorites</span>
+        `;
+
+        // Update mood buttons
+        document.querySelectorAll('.mood-option').forEach(option => {
+            option.classList.remove('active');
+            if (option.getAttribute('data-mood') === moods[hymnId]) {
+                option.classList.add('active');
+            }
+        });
+
+        // Set up audio
+        audio.src = currentHymn.audio;
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = formatTime(audio.duration);
+        });
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('ended', () => {
+            isPlaying = false;
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            miniPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+        });
+
+        hymnDetail.classList.add('active');
+    }
+
+    // Close hymn detail view
+    function closeHymnDetail() {
+        hymnDetail.classList.remove('active');
+        pauseAudio();
+        currentHymn = null;
+    }
+
+    // Toggle audio playback
+    function togglePlayback() {
+        if (!currentHymn) return;
+
+        if (isPlaying) {
+            pauseAudio();
+        } else {
+            playAudio();
         }
+    }
 
-        // Open hymn detail view
-        function openHymnDetail(hymnId) {
-            currentHymn = hymns.find(h => h.id === hymnId);
-            if (!currentHymn) return;
+    // Play audio
+    function playAudio() {
+        if (!currentHymn) return;
+        
+        audio.play()
+            .then(() => {
+                isPlaying = true;
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                miniPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                
+                // Show mini player
+                miniPlayerTitle.textContent = `Now Playing: ${currentHymn.title}`;
+                miniPlayer.classList.remove('hidden');
+                
+                showToast('Audio started playing');
+            })
+            .catch(error => {
+                console.error('Error playing audio:', error);
+                showToast('Error playing audio');
+            });
+    }
 
-            detailTitle.textContent = currentHymn.title;
-            lyricsContainer.textContent = currentHymn.lyrics;
-            
-            // Update favorite button state
+    // Pause audio
+    function pauseAudio() {
+        audio.pause();
+        isPlaying = false;
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        miniPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+        showToast('Audio paused');
+    }
+
+    // Update progress bar
+    function updateProgress() {
+        if (!audio.duration) return;
+        
+        const progressPercent = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+    }
+
+    // Set progress on click
+    function setProgress(e) {
+        const width = this.clientWidth;
+        const clickX = e.offsetX;
+        const duration = audio.duration;
+        
+        audio.currentTime = (clickX / width) * duration;
+    }
+
+    // Format time in mm:ss
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    // Toggle favorite status
+    function toggleFavorite(hymnId) {
+        const index = favorites.indexOf(hymnId);
+        
+        if (index === -1) {
+            favorites.push(hymnId);
+            showToast('Added to Favorites');
+        } else {
+            favorites.splice(index, 1);
+            showToast('Removed from Favorites');
+        }
+        
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        updateFavoritesDisplay();
+        updateNotesDisplay();
+        updateMoodDisplay();
+        
+        // Update favorite button if viewing the hymn detail
+        if (currentHymn && currentHymn.id === hymnId) {
             const isFavorite = favorites.includes(hymnId);
             favoriteBtn.innerHTML = `
                 <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>
                 <span>${isFavorite ? 'Remove from' : 'Add to'} Favorites</span>
             `;
+        }
+        
+        // Re-render hymns to update favorite status
+        renderHymns(hymns, hymnsContainer);
+    }
 
-            // Update mood buttons
-            document.querySelectorAll('.mood-option').forEach(option => {
-                option.classList.remove('active');
-                if (option.getAttribute('data-mood') === moods[hymnId]) {
-                    option.classList.add('active');
+    // Update favorites display
+    function updateFavoritesDisplay() {
+        const favoriteHymns = hymns.filter(hymn => favorites.includes(hymn.id));
+        renderHymns(favoriteHymns, favoritesContainer);
+    }
+
+    // Open notes modal
+    function openNotesModal() {
+        if (!currentHymn) return;
+        
+        notesTextarea.value = notes[currentHymn.id] || '';
+        notesModal.classList.add('active');
+    }
+
+    // Close notes modal
+    function closeNotesModal() {
+        notesModal.classList.remove('active');
+    }
+
+    // Save note
+    function saveNote() {
+        if (!currentHymn) return;
+        
+        const noteText = notesTextarea.value.trim();
+        if (noteText) {
+            notes[currentHymn.id] = noteText;
+            localStorage.setItem('notes', JSON.stringify(notes));
+            showToast('Note saved successfully');
+        } else {
+            delete notes[currentHymn.id];
+            localStorage.setItem('notes', JSON.stringify(notes));
+            showToast('Note cleared');
+        }
+        
+        closeNotesModal();
+        updateNotesDisplay();
+    }
+
+    // Update notes display
+    function updateNotesDisplay() {
+        const hymnsWithNotes = hymns.filter(hymn => notes[hymn.id]);
+        renderHymns(hymnsWithNotes, notesContainer);
+    }
+
+    // Set mood for current hymn
+    function setMood(mood) {
+        if (!currentHymn) return;
+        
+        moods[currentHymn.id] = mood;
+        localStorage.setItem('moods', JSON.stringify(moods));
+        
+        // Update active state on mood buttons
+        document.querySelectorAll('.mood-option').forEach(option => {
+            option.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        showToast(`Mood set to ${mood}`);
+    }
+
+    // Update mood display
+    function updateMoodDisplay() {
+        let filteredHymns = hymns;
+        
+        if (currentMoodFilter !== 'all') {
+            filteredHymns = hymns.filter(hymn => moods[hymn.id] === currentMoodFilter);
+        }
+        
+        renderHymns(filteredHymns, moodContainer);
+    }
+
+    // Show toast notification
+    function showToast(message) {
+        toastMessage.textContent = message;
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2000);
+    }
+
+    // Toggle dark/light mode
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+        themeToggle.innerHTML = `<i class="fas fa-${isDarkMode ? 'sun' : 'moon'}"></i>`;
+    }
+
+    // Apply stored theme preference
+    function applyStoredTheme() {
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+    }
+
+    // Switch between pages
+    function switchPage(pageId) {
+        pages.forEach(page => {
+            page.classList.remove('active');
+        });
+        
+        navItems.forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        document.getElementById(pageId).classList.add('active');
+        event.currentTarget.classList.add('active');
+        
+        // Update the specific page content
+        if (pageId === 'favorites-page') {
+            updateFavoritesDisplay();
+        } else if (pageId === 'notes-page') {
+            updateNotesDisplay();
+        } else if (pageId === 'mood-page') {
+            updateMoodDisplay();
+        }
+    }
+
+    // Set up event listeners
+    function setupEventListeners() {
+        // Audio controls
+        playBtn.addEventListener('click', togglePlayback);
+        progressContainer.addEventListener('click', setProgress);
+        
+        // Mini player controls
+        miniPlayBtn.addEventListener('click', togglePlayback);
+        miniPlayerClose.addEventListener('click', () => {
+            miniPlayer.classList.add('hidden');
+            pauseAudio();
+        });
+        
+        // Hymn detail
+        detailClose.addEventListener('click', closeHymnDetail);
+        favoriteBtn.addEventListener('click', () => {
+            if (currentHymn) toggleFavorite(currentHymn.id);
+        });
+        notesBtn.addEventListener('click', openNotesModal);
+        
+        // Notes modal
+        notesSave.addEventListener('click', saveNote);
+        notesCancel.addEventListener('click', closeNotesModal);
+        notesClose.addEventListener('click', closeNotesModal);
+        
+        // Search
+        searchBtn.addEventListener('click', filterHymns);
+        searchInput.addEventListener('input', filterHymns);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') filterHymns();
+        });
+        
+        // Theme toggle
+        themeToggle.addEventListener('click', toggleTheme);
+        
+        // Navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const pageId = item.getAttribute('data-page');
+                switchPage(pageId);
+            });
+        });
+        
+        // Mood selection
+        document.querySelectorAll('.mood-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                const mood = e.currentTarget.getAttribute('data-mood');
+                
+                if (hymnDetail.classList.contains('active')) {
+                    // Set mood for current hymn
+                    setMood(mood);
+                } else {
+                    // Filter hymns by mood
+                    currentMoodFilter = mood;
+                    updateMoodDisplay();
+                    
+                    // Update active state
+                    document.querySelectorAll('.mood-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    e.currentTarget.classList.add('active');
                 }
             });
-
-            // Set up audio
-            audio.src = currentHymn.audio;
-            audio.addEventListener('loadedmetadata', () => {
-                durationEl.textContent = formatTime(audio.duration);
-            });
-            audio.addEventListener('timeupdate', updateProgress);
-            audio.addEventListener('ended', () => {
-                isPlaying = false;
-                playBtn.innerHTML = '<i class="fas fa-play"></i>';
-                miniPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
-            });
-
-            hymnDetail.classList.add('active');
-        }
-
-        // Close hymn detail view
-        function closeHymnDetail() {
-            hymnDetail.classList.remove('active');
-            pauseAudio();
-            currentHymn = null;
-        }
-
-        // Toggle audio playback
-        function togglePlayback() {
-            if (!currentHymn) return;
-
-            if (isPlaying) {
-                pauseAudio();
-            } else {
-                playAudio();
+        });
+        
+        // Close modal on outside click
+        notesModal.addEventListener('click', (e) => {
+            if (e.target === notesModal) {
+                closeNotesModal();
             }
-        }
+        });
+        
+        // Settings buttons
+        document.getElementById('export-data').addEventListener('click', exportData);
+        document.getElementById('import-data').addEventListener('click', importData);
+        document.getElementById('reset-data').addEventListener('click', resetData);
+    }
 
-        // Play audio
-        function playAudio() {
-            if (!currentHymn) return;
+    // Export data function
+    function exportData() {
+        const data = {
+            favorites: favorites,
+            notes: notes,
+            moods: moods
+        };
+        
+        const dataStr = JSON.stringify(data, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'hymn-haven-data.json';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        showToast('Data exported successfully');
+    }
+
+    // Import data function
+    function importData() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'application/json';
+        
+        input.onchange = e => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
             
-            audio.play()
-                .then(() => {
-                    isPlaying = true;
-                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                    miniPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            reader.onload = event => {
+                try {
+                    const data = JSON.parse(event.target.result);
                     
-                    // Show mini player
-                    miniPlayerTitle.textContent = `Now Playing: ${currentHymn.title}`;
-                    miniPlayer.classList.remove('hidden');
+                    if (data.favorites) favorites = data.favorites;
+                    if (data.notes) notes = data.notes;
+                    if (data.moods) moods = data.moods;
                     
-                    showToast('Audio started playing');
-                })
-                .catch(error => {
-                    console.error('Error playing audio:', error);
-                    showToast('Error playing audio');
-                });
-        }
-
-        // Pause audio
-        function pauseAudio() {
-            audio.pause();
-            isPlaying = false;
-            playBtn.innerHTML = '<i class="fas fa-play"></i>';
-            miniPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
-            showToast('Audio paused');
-        }
-
-        // Update progress bar
-        function updateProgress() {
-            if (!audio.duration) return;
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+                    localStorage.setItem('notes', JSON.stringify(notes));
+                    localStorage.setItem('moods', JSON.stringify(moods));
+                    
+                    updateFavoritesDisplay();
+                    updateNotesDisplay();
+                    updateMoodDisplay();
+                    renderHymns(hymns, hymnsContainer);
+                    
+                    showToast('Data imported successfully');
+                } catch (error) {
+                    console.error('Error importing data:', error);
+                    showToast('Error importing data');
+                }
+            };
             
-            const progressPercent = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = `${progressPercent}%`;
-            currentTimeEl.textContent = formatTime(audio.currentTime);
-        }
+            reader.readAsText(file);
+        };
+        
+        input.click();
+    }
 
-        // Set progress on click
-        function setProgress(e) {
-            const width = this.clientWidth;
-            const clickX = e.offsetX;
-            const duration = audio.duration;
-            
-            audio.currentTime = (clickX / width) * duration;
-        }
-
-        // Format time in mm:ss
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-        }
-
-        // Toggle favorite status
-        function toggleFavorite(hymnId) {
-            const index = favorites.indexOf(hymnId);
-            
-            if (index === -1) {
-                favorites.push(hymnId);
-                showToast('Added to Favorites');
-            } else {
-                favorites.splice(index, 1);
-                showToast('Removed from Favorites');
-            }
+    // Reset data function
+    function resetData() {
+        if (confirm('Are you sure you want to reset all your data? This cannot be undone.')) {
+            favorites = [];
+            notes = {};
+            moods = {};
             
             localStorage.setItem('favorites', JSON.stringify(favorites));
+            localStorage.setItem('notes', JSON.stringify(notes));
+            localStorage.setItem('moods', JSON.stringify(moods));
+            
             updateFavoritesDisplay();
             updateNotesDisplay();
             updateMoodDisplay();
-            
-            // Update favorite button if viewing the hymn detail
-            if (currentHymn && currentHymn.id === hymnId) {
-                const isFavorite = favorites.includes(hymnId);
-                favoriteBtn.innerHTML = `
-                    <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>
-                    <span>${isFavorite ? 'Remove from' : 'Add to'} Favorites</span>
-                `;
-            }
-            
-            // Re-render hymns to update favorite status
             renderHymns(hymns, hymnsContainer);
+            
+            showToast('All data has been reset');
         }
+    }
 
-        // Update favorites display
-        function updateFavoritesDisplay() {
-            const favoriteHymns = hymns.filter(hymn => favorites.includes(hymn.id));
-            renderHymns(favoriteHymns, favoritesContainer);
-        }
-
-        // Open notes modal
-        function openNotesModal() {
-            if (!currentHymn) return;
-            
-            notesTextarea.value = notes[currentHymn.id] || '';
-            notesModal.classList.add('active');
-        }
-
-        // Close notes modal
-        function closeNotesModal() {
-            notesModal.classList.remove('active');
-        }
-
-        // Save note
-        function saveNote() {
-            if (!currentHymn) return;
-            
-            const noteText = notesTextarea.value.trim();
-            if (noteText) {
-                notes[currentHymn.id] = noteText;
-                localStorage.setItem('notes', JSON.stringify(notes));
-                showToast('Note saved successfully');
-            } else {
-                delete notes[currentHymn.id];
-                localStorage.setItem('notes', JSON.stringify(notes));
-                showToast('Note cleared');
-            }
-            
-            closeNotesModal();
-            updateNotesDisplay();
-        }
-
-        // Update notes display
-        function updateNotesDisplay() {
-            const hymnsWithNotes = hymns.filter(hymn => notes[hymn.id]);
-            renderHymns(hymnsWithNotes, notesContainer);
-        }
-
-        // Set mood for current hymn
-        function setMood(mood) {
-            if (!currentHymn) return;
-            
-            moods[currentHymn.id] = mood;
-            localStorage.setItem('moods', JSON.stringify(moods));
-            
-            // Update active state on mood buttons
-            document.querySelectorAll('.mood-option').forEach(option => {
-                option.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            showToast(`Mood set to ${mood}`);
-        }
-
-        // Update mood display
-        function updateMoodDisplay() {
-            let filteredHymns = hymns;
-            
-            if (currentMoodFilter !== 'all') {
-                filteredHymns = hymns.filter(hymn => moods[hymn.id] === currentMoodFilter);
-            }
-            
-            renderHymns(filteredHymns, moodContainer);
-        }
-
-        // Filter hymns by search
-        function filterHymns() {
-            const query = searchInput.value.toLowerCase().trim();
-            
-            if (!query) {
-                renderHymns(hymns, hymnsContainer);
-                return;
-            }
-            
-            const filteredHymns = hymns.filter(hymn => 
-                hymn.title.toLowerCase().includes(query) || 
-                hymn.lyrics.toLowerCase().includes(query)
-            );
-            
-            renderHymns(filteredHymns, hymnsContainer);
-        }
-
-        // Show toast notification
-        function showToast(message) {
-            toastMessage.textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2000);
-        }
-
-        // Toggle dark/light mode
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const isDarkMode = document.body.classList.contains('dark-mode');
-            localStorage.setItem('darkMode', isDarkMode);
-            themeToggle.innerHTML = `<i class="fas fa-${isDarkMode ? 'sun' : 'moon'}"></i>`;
-        }
-
-        // Apply stored theme preference
-        function applyStoredTheme() {
-            const isDarkMode = localStorage.getItem('darkMode') === 'true';
-            if (isDarkMode) {
-                document.body.classList.add('dark-mode');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            }
-        }
-
-        // Switch between pages
-        function switchPage(pageId) {
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            navItems.forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            document.getElementById(pageId).classList.add('active');
-            event.currentTarget.classList.add('active');
-            
-            // Update the specific page content
-            if (pageId === 'favorites-page') {
-                updateFavoritesDisplay();
-            } else if (pageId === 'notes-page') {
-                updateNotesDisplay();
-            } else if (pageId === 'mood-page') {
-                updateMoodDisplay();
-            }
-        }
-
-        // Set up event listeners
-        function setupEventListeners() {
-            // Audio controls
-            playBtn.addEventListener('click', togglePlayback);
-            progressContainer.addEventListener('click', setProgress);
-            
-            // Mini player controls
-            miniPlayBtn.addEventListener('click', togglePlayback);
-            miniPlayerClose.addEventListener('click', () => {
-                miniPlayer.classList.add('hidden');
-                pauseAudio();
-            });
-            
-            // Hymn detail
-            detailClose.addEventListener('click', closeHymnDetail);
-            favoriteBtn.addEventListener('click', () => {
-                if (currentHymn) toggleFavorite(currentHymn.id);
-            });
-            notesBtn.addEventListener('click', openNotesModal);
-            
-            // Notes modal
-            notesSave.addEventListener('click', saveNote);
-            notesCancel.addEventListener('click', closeNotesModal);
-            notesClose.addEventListener('click', closeNotesModal);
-            
-            // Search
-            searchBtn.addEventListener('click', filterHymns);
-            searchInput.addEventListener('input', filterHymns);
-            searchInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') filterHymns();
-            });
-            
-            // Theme toggle
-            themeToggle.addEventListener('click', toggleTheme);
-            
-            // Navigation
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const pageId = item.getAttribute('data-page');
-                    switchPage(pageId);
-                });
-            });
-            
-            // Mood selection
-            document.querySelectorAll('.mood-option').forEach(option => {
-                option.addEventListener('click', (e) => {
-                    const mood = e.currentTarget.getAttribute('data-mood');
-                    
-                    if (hymnDetail.classList.contains('active')) {
-                        // Set mood for current hymn
-                        setMood(mood);
-                    } else {
-                        // Filter hymns by mood
-                        currentMoodFilter = mood;
-                        updateMoodDisplay();
-                        
-                        // Update active state
-                        document.querySelectorAll('.mood-option').forEach(opt => {
-                            opt.classList.remove('active');
-                        });
-                        e.currentTarget.classList.add('active');
-                    }
-                });
-            });
-            
-            // Close modal on outside click
-            notesModal.addEventListener('click', (e) => {
-                if (e.target === notesModal) {
-                    closeNotesModal();
-                }
-            });
-            
-            // Settings buttons
-            document.getElementById('export-data').addEventListener('click', exportData);
-            document.getElementById('import-data').addEventListener('click', importData);
-            document.getElementById('reset-data').addEventListener('click', resetData);
-        }
-
-        // Export data function
-        function exportData() {
-            const data = {
-                favorites: favorites,
-                notes: notes,
-                moods: moods
-            };
-            
-            const dataStr = JSON.stringify(data, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'hymn-haven-data.json';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            
-            showToast('Data exported successfully');
-        }
-
-        // Import data function
-        function importData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'application/json';
-            
-            input.onchange = e => {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                
-                reader.onload = event => {
-                    try {
-                        const data = JSON.parse(event.target.result);
-                        
-                        if (data.favorites) favorites = data.favorites;
-                        if (data.notes) notes = data.notes;
-                        if (data.moods) moods = data.moods;
-                        
-                        localStorage.setItem('favorites', JSON.stringify(favorites));
-                        localStorage.setItem('notes', JSON.stringify(notes));
-                        localStorage.setItem('moods', JSON.stringify(moods));
-                        
-                        updateFavoritesDisplay();
-                        updateNotesDisplay();
-                        updateMoodDisplay();
-                        renderHymns(hymns, hymnsContainer);
-                        
-                        showToast('Data imported successfully');
-                    } catch (error) {
-                        console.error('Error importing data:', error);
-                        showToast('Error importing data');
-                    }
-                };
-                
-                reader.readAsText(file);
-            };
-            
-            input.click();
-        }
-
-        // Reset data function
-        function resetData() {
-            if (confirm('Are you sure you want to reset all your data? This cannot be undone.')) {
-                favorites = [];
-                notes = {};
-                moods = {};
-                
-                localStorage.setItem('favorites', JSON.stringify(favorites));
-                localStorage.setItem('notes', JSON.stringify(notes));
-                localStorage.setItem('moods', JSON.stringify(moods));
-                
-                updateFavoritesDisplay();
-                updateNotesDisplay();
-                updateMoodDisplay();
-                renderHymns(hymns, hymnsContainer);
-                
-                showToast('All data has been reset');
-            }
-        }
-
-        // Initialize the app when DOM is loaded
-        document.addEventListener('DOMContentLoaded', initApp);
-    </script>
+    // Initialize the app when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initApp);
+</script>
 </body>
 </html>
