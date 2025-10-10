@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hymn Haven</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #5A52D5;
+            --secondary: #FF6584;
+            --accent: #36D1DC;
+            --light: #F8F9FA;
+            --dark: #212529;
+            --gray: #6C757D;
+            --light-gray: #E9ECEF;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+            --border-radius: 16px;
+            --sidebar-width: 280px;
+        }
+
+        .dark-mode {
+            --light: #121212;
+            --dark: #F8F9FA;
+            --gray: #A0A0A0;
+            --light-gray: #2D2D2D;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            transition: var(--transition);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* App Layout */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-actions button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .header-actions button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Search Bar */
+        .search-container {
+            padding: 1rem 1.5rem;
+            background-color: var(--light);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .search-box {
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .dark-mode .search-box {
+            background: var(--light-gray);
+        }
+
+        .search-box:focus-within {
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 0.5rem;
+            background: transparent;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+
+        .search-box button {
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-box button:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Mini Audio Player */
+        .mini-player {
+            background: white;
+            padding: 0.8rem 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .dark-mode .mini-player {
+            background: var(--light-gray);
+        }
+
+        .mini-player.hidden {
+            display: none;
+        }
+
+        .mini-player-info {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .mini-player-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .mini-player-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mini-player-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mini-player-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .mini-player-close {
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mini-player-close:hover {
+            color: var(--dark);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        /* Hymn Grid */
+        .hymns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .hymn-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .dark-mode .hymn-card {
+            background: var(--light-gray);
+        }
+
+        .hymn-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .hymn-number {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        .hymn-image {
+            height: 140px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .hymn-content {
+            padding: 1.2rem;
+        }
+
+        .hymn-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .hymn-preview {
+            color: var(--gray);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.8em;
+        }
+
+        .hymn-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .hymn-actions button {
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+        }
+
+        .hymn-actions button:hover {
+            color: var(--primary);
+        }
+
+        .hymn-actions .favorite.active {
+            color: var(--secondary);
+        }
+
+        /* Hymn Detail View */
+        .hymn-detail {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--light);
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hymn-detail.active {
+            transform: translateX(0);
+        }
+
+        .detail-header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .detail-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .detail-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .detail-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .detail-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .lyrics-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .dark-mode .lyrics-container {
+            background: var(--light-gray);
+        }
+
+        .audio-player {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .dark-mode .audio-player {
+            background: var(--light-gray);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .play-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .play-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .progress-container {
+            flex: 1;
+            height: 6px;
+            background: var(--light-gray);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .detail-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .action-btn {
+            background: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+        }
+
+        .dark-mode .action-btn {
+            background: var(--light-gray);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .action-btn span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .mood-selector {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .dark-mode .mood-selector {
+            background: var(--light-gray);
+        }
+
+        .mood-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mood-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .mood-option {
+            background: var(--light-gray);
+            border: none;
+            border-radius: 10px;
+            padding: 0.8rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mood-option:hover, .mood-option.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .mood-option i {
+            font-size: 1.2rem;
+        }
+
+        .mood-option span {
+            font-size: 0.8rem;
+        }
+
+        /* Notes Modal */
+        .notes-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .notes-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .notes-content {
+            background: var(--light);
+            width: 90%;
+            max-width: 500px;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .notes-modal.active .notes-content {
+            transform: translateY(0);
+        }
+
+        .notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .notes-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .notes-close {
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .notes-close:hover {
+            color: var(--dark);
+        }
+
+        .notes-textarea {
+            width: 100%;
+            height: 200px;
+            border: 1px solid var(--light-gray);
+            border-radius: 10px;
+            padding: 1rem;
+            resize: none;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        .notes-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .notes-actions button {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .notes-cancel {
+            background: transparent;
+            color: var(--gray);
+        }
+
+        .notes-cancel:hover {
+            background: var(--light-gray);
+        }
+
+        .notes-save {
+            background: var(--primary);
+            color: white;
+        }
+
+        .notes-save:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            background: white;
+            border-top: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.8rem 0;
+            position: sticky;
+            bottom: 0;
+            z-index: 100;
+        }
+
+        .dark-mode .bottom-nav {
+            background: var(--light-gray);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.5rem;
+            border-radius: 10px;
+            flex: 1;
+            max-width: 80px;
+        }
+
+        .nav-item:hover {
+            background: var(--light-gray);
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+        }
+
+        .nav-item span {
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            opacity: 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast i {
+            color: var(--accent);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--light-gray);
+        }
+
+        .empty-state h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Settings Page */
+        .settings-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 768px;
+                margin: 0 auto;
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+                min-height: 100vh;
+            }
+
+            .hymn-detail {
+                max-width: 768px;
+                margin: 0 auto;
+                left: 50%;
+                transform: translateX(50%);
+            }
+
+            .hymn-detail.active {
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hymns-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .mood-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(108, 99, 255, 0.2);
+            border-left: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-church"></i>
+                <h1>Hymn Haven</h1>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Mini Audio Player -->
+        <div class="mini-player hidden" id="mini-player">
+            <div class="mini-player-info">
+                <div class="mini-player-title" id="mini-player-title">Now Playing: Amazing Grace</div>
+            </div>
+            <div class="mini-player-controls">
+                <button class="mini-player-btn" id="mini-play-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="mini-player-close" id="mini-player-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search hymns by title or lyrics...">
+                <button id="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Page -->
+            <section id="home-page" class="page active">
+                <h2 class="section-title">
+                    <i class="fas fa-music"></i>
+                    All Hymns
+                </h2>
+                <div id="hymns-container" class="hymns-grid">
+                    <!-- Hymn cards will be inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Favorites Page -->
+            <section id="favorites-page" class="page">
+                <h2 class="section-title">
+                    <i class="fas fa-heart"></i>
+                    Favorite Hymns
+                </h2>
+                <div id="favorites-container" class="hymns-grid">
+                    <!-- Favorite hymn cards will be inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Notes Page -->
+            <section id="notes-page" class="page">
+                <h2 class="section-title">
+                    <i class="fas fa-sticky-note"></i>
+                    My Notes
+                </h2>
+                <div id="notes-container" class="hymns-grid">
+                    <!-- Hymn cards with notes will be inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Mood Page -->
+            <section id="mood-page" class="page">
+                <h2 class="section-title">
+                    <i class="fas fa-smile"></i>
+                    Hymns by Mood
+                </h2>
+                <div class="mood-selector">
+                    <h3 class="mood-title">
+                        <i class="fas fa-filter"></i>
+                        Filter by Mood
+                    </h3>
+                    <div class="mood-options">
+                        <button class="mood-option active" data-mood="all">
+                            <i class="fas fa-globe"></i>
+                            <span>All</span>
+                        </button>
+                        <button class="mood-option" data-mood="worshipful">
+                            <i class="fas fa-hands-praying"></i>
+                            <span>Worship</span>
+                        </button>
+                        <button class="mood-option" data-mood="happy">
+                            <i class="fas fa-laugh"></i>
+                            <span>Happy</span>
+                        </button>
+                        <button class="mood-option" data-mood="calm">
+                            <i class="fas fa-peace"></i>
+                            <span>Calm</span>
+                        </button>
+                        <button class="mood-option" data-mood="sad">
+                            <i class="fas fa-sad-tear"></i>
+                            <span>Sad</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="mood-container" class="hymns-grid">
+                    <!-- Hymn cards filtered by mood will be inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Settings Page -->
+            <section id="settings-page" class="page">
+                <h2 class="section-title">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </h2>
+                <div class="settings-options">
+                    <div class="action-btn" id="export-data">
+                        <i class="fas fa-file-export"></i>
+                        <span>Export Data</span>
+                    </div>
+                    <div class="action-btn" id="import-data">
+                        <i class="fas fa-file-import"></i>
+                        <span>Import Data</span>
+                    </div>
+                    <div class="action-btn" id="reset-data">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>Reset Data</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Hymn Detail View -->
+        <div class="hymn-detail" id="hymn-detail">
+            <div class="detail-header">
+                <h2 class="detail-title" id="detail-title">Hymn Title</h2>
+                <button class="detail-close" id="detail-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="detail-content">
+                <div class="audio-player">
+                    <div class="player-controls">
+                        <button class="play-btn" id="play-btn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="progress-container" id="progress-container">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+                    </div>
+                    <div class="time-display">
+                        <span id="current-time">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+                </div>
+                
+                <div class="lyrics-container" id="lyrics-container">
+                    <!-- Lyrics will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="detail-actions">
+                    <button class="action-btn" id="favorite-btn">
+                        <i class="far fa-heart"></i>
+                        <span>Add to Favorites</span>
+                    </button>
+                    <button class="action-btn" id="notes-btn">
+                        <i class="far fa-sticky-note"></i>
+                        <span>Add Notes</span>
+                    </button>
+                </div>
+                
+                <div class="mood-selector">
+                    <h3 class="mood-title">
+                        <i class="fas fa-smile"></i>
+                        Select Mood for this Hymn
+                    </h3>
+                    <div class="mood-options">
+                        <button class="mood-option" data-mood="worshipful">
+                            <i class="fas fa-hands-praying"></i>
+                            <span>Worship</span>
+                        </button>
+                        <button class="mood-option" data-mood="happy">
+                            <i class="fas fa-laugh"></i>
+                            <span>Happy</span>
+                        </button>
+                        <button class="mood-option" data-mood="calm">
+                            <i class="fas fa-peace"></i>
+                            <span>Calm</span>
+                        </button>
+                        <button class="mood-option" data-mood="sad">
+                            <i class="fas fa-sad-tear"></i>
+                            <span>Sad</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes Modal -->
+        <div class="notes-modal" id="notes-modal">
+            <div class="notes-content">
+                <div class="notes-header">
+                    <h3 class="notes-title">Add Notes</h3>
+                    <button class="notes-close" id="notes-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <textarea class="notes-textarea" id="notes-textarea" placeholder="Write your notes here..."></textarea>
+                <div class="notes-actions">
+                    <button class="notes-cancel" id="notes-cancel">Cancel</button>
+                    <button class="notes-save" id="notes-save">Save Note</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div class="toast" id="toast">
+            <i class="fas fa-check-circle"></i>
+            <span id="toast-message">Action completed successfully</span>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-page="home-page">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" data-page="favorites-page">
+                <i class="fas fa-heart"></i>
+                <span>Favorites</span>
+            </div>
+            <div class="nav-item" data-page="notes-page">
+                <i class="fas fa-sticky-note"></i>
+                <span>Notes</span>
+            </div>
+            <div class="nav-item" data-page="mood-page">
+                <i class="fas fa-smile"></i>
+                <span>Mood</span>
+            </div>
+            <div class="nav-item" data-page="settings-page">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        // Sample hymns data (fallback in case JSON fails to load)
+        const sampleHymns = [
+            {
+                id: 1,
+                title: "Amazing Grace",
+                lyrics: `Amazing grace! How sweet the sound
+That saved a wretch like me!
+I once was lost, but now am found;
+Was blind, but now I see.
+
+'Twas grace that taught my heart to fear,
+And grace my fears relieved;
+How precious did that grace appear
+The hour I first believed.
+
+Through many dangers, toils and snares,
+I have already come;
+'Tis grace hath brought me safe thus far,
+And grace will lead me home.
+
+The Lord has promised good to me,
+His Word my hope secures;
+He will my Shield and Portion be,
+As long as life endures.
+
+Yea, when this flesh and heart shall fail,
+And mortal life shall cease,
+I shall possess, within the veil,
+A life of joy and peace.
+
+When we've been there ten thousand years,
+Bright shining as the sun,
+We've no less days to sing God's praise
+Than when we'd first begun.`,
+                audio: "audio/hymn1.mp3",
+                mood: "worshipful"
+            },
+            {
+                id: 2,
+                title: "How Great Thou Art",
+                lyrics: `O Lord my God, when I in awesome wonder
+Consider all the works Thy Hand hath made,
+I see the stars, I hear the mighty thunder,
+Thy pow'r throughout the universe displayed;
+
+Refrain:
+Then sings my soul, my Savior God, to Thee,
+How great Thou art! How great Thou art!
+Then sings my soul, my Savior God, to Thee,
+How great Thou art! How great Thou art!
+
+When through the woods and forest glades I wander
+And hear the birds sing sweetly in the trees;
+When I look down from lofty mountain grandeur
+And hear the brook and feel the gentle breeze;
+
+(Refrain)
+
+And when I think that God, His Son not sparing,
+Sent Him to die, I scarce can take it in;
+That on the Cross, my burden gladly bearing,
+He bled and died to take away my sin;
+
+(Refrain)
+
+When Christ shall come with shout of acclamation
+And take me home, what joy shall fill my heart!
+Then I shall bow in humble adoration
+And there proclaim, my God, how great Thou art!
+
+(Refrain)`,
+                audio: "audio/hymn2.mp3",
+                mood: "worshipful"
+            },
+            {
+                id: 3,
+                title: "Great Is Thy Faithfulness",
+                lyrics: `Great is Thy faithfulness, O God my Father;
+There is no shadow of turning with Thee;
+Thou changest not, Thy compassions, they fail not;
+As Thou hast been, Thou forever will be.
+
+Refrain:
+Great is Thy faithfulness! Great is Thy faithfulness!
+Morning by morning new mercies I see;
+All I have needed Thy hand hath provided;
+Great is Thy faithfulness, Lord, unto me!
+
+Summer and winter and springtime and harvest,
+Sun, moon and stars in their courses above
+Join with all nature in manifold witness
+To Thy great faithfulness, mercy and love.
+
+(Refrain)
+
+Pardon for sin and a peace that endureth
+Thine own dear presence to cheer and to guide;
+Strength for today and bright hope for tomorrow,
+Blessings all mine, with ten thousand beside!
+
+(Refrain)`,
+                audio: "audio/hymn3.mp3",
+                mood: "calm"
+            },
+            {
+                id: 4,
+                title: "It Is Well With My Soul",
+                lyrics: `When peace, like a river, attendeth my way,
+When sorrows like sea billows roll;
+Whatever my lot, Thou hast taught me to say,
+It is well, it is well with my soul.
+
+Refrain:
+It is well with my soul,
+It is well, it is well with my soul.
+
+Though Satan should buffet, though trials should come,
+Let this blest assurance control,
+That Christ has regarded my helpless estate,
+And hath shed His own blood for my soul.
+
+(Refrain)
+
+My sin, oh, the bliss of this glorious thought!
+My sin, not in part but the whole,
+Is nailed to the cross, and I bear it no more,
+Praise the Lord, praise the Lord, O my soul!
+
+(Refrain)
+
+And Lord, haste the day when my faith shall be sight,
+The clouds be rolled back as a scroll;
+The trump shall resound, and the Lord shall descend,
+Even so, it is well with my soul.
+
+(Refrain)`,
+                audio: "audio/hymn4.mp3",
+                mood: "calm"
+            },
+            {
+                id: 5,
+                title: "Blessed Assurance",
+                lyrics: `Blessed assurance, Jesus is mine!
+Oh, what a foretaste of glory divine!
+Heir of salvation, purchase of God,
+Born of His Spirit, washed in His blood.
+
+Refrain:
+This is my story, this is my song,
+Praising my Savior all the day long;
+This is my story, this is my song,
+Praising my Savior all the day long.
+
+Perfect submission, perfect delight,
+Visions of rapture now burst on my sight;
+Angels, descending, bring from above
+Echoes of mercy, whispers of love.
+
+(Refrain)
+
+Perfect submission, all is at rest,
+I in my Savior am happy and blest,
+Watching and waiting, looking above,
+Filled with His goodness, lost in His love.
+
+(Refrain)`,
+                audio: "audio/hymn5.mp3",
+                mood: "happy"
+            }
+        ];
+
+        // App State
+        let hymns = [];
+        let currentHymn = null;
+        let audio = new Audio();
+        let isPlaying = false;
+        let currentTime = 0;
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        let notes = JSON.parse(localStorage.getItem('notes')) || {};
+        let moods = JSON.parse(localStorage.getItem('moods')) || {};
+        let currentMoodFilter = 'all';
+
+        // DOM Elements
+        const hymnsContainer = document.getElementById('hymns-container');
+        const favoritesContainer = document.getElementById('favorites-container');
+        const notesContainer = document.getElementById('notes-container');
+        const moodContainer = document.getElementById('mood-container');
+        const hymnDetail = document.getElementById('hymn-detail');
+        const detailTitle = document.getElementById('detail-title');
+        const lyricsContainer = document.getElementById('lyrics-container');
+        const playBtn = document.getElementById('play-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressContainer = document.getElementById('progress-container');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const favoriteBtn = document.getElementById('favorite-btn');
+        const notesBtn = document.getElementById('notes-btn');
+        const notesModal = document.getElementById('notes-modal');
+        const notesTextarea = document.getElementById('notes-textarea');
+        const notesSave = document.getElementById('notes-save');
+        const notesCancel = document.getElementById('notes-cancel');
+        const notesClose = document.getElementById('notes-close');
+        const detailClose = document.getElementById('detail-close');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        const themeToggle = document.getElementById('theme-toggle');
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+        const moodOptions = document.querySelectorAll('.mood-option');
+        const miniPlayer = document.getElementById('mini-player');
+        const miniPlayerTitle = document.getElementById('mini-player-title');
+        const miniPlayBtn = document.getElementById('mini-play-btn');
+        const miniPlayerClose = document.getElementById('mini-player-close');
+
+        // Initialize App
+        function initApp() {
+            loadHymns();
+            setupEventListeners();
+            updateFavoritesDisplay();
+            updateNotesDisplay();
+            updateMoodDisplay();
+            applyStoredTheme();
+        }
+
+        // Load hymns from JSON or use sample data
+        function loadHymns() {
+            // Try to load from JSON file first
+            fetch('data/hymns.json')
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to load hymns.json');
+                    return response.json();
+                })
+                .then(data => {
+                    hymns = data;
+                    renderHymns(hymns, hymnsContainer);
+                })
+                .catch(error => {
+                    console.error('Error loading hymns:', error);
+                    // Use sample data if JSON fails to load
+                    hymns = sampleHymns;
+                    renderHymns(hymns, hymnsContainer);
+                    showToast('Using sample hymns data');
+                });
+        }
+
+        // Render hymns to a container
+        function renderHymns(hymnsArray, container) {
+            if (!container) return;
+            
+            if (hymnsArray.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-music"></i>
+                        <h3>No hymns found</h3>
+                        <p>Try adjusting your search or filter</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = hymnsArray.map(hymn => `
+                <div class="hymn-card" data-id="${hymn.id}">
+                    <div class="hymn-number">${hymn.id}</div>
+                    <div class="hymn-image">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="hymn-content">
+                        <h3 class="hymn-title">${hymn.title}</h3>
+                        <p class="hymn-preview">${hymn.lyrics.substring(0, 100)}...</p>
+                        <div class="hymn-actions">
+                            <button class="favorite ${favorites.includes(hymn.id) ? 'active' : ''}" data-id="${hymn.id}">
+                                <i class="${favorites.includes(hymn.id) ? 'fas' : 'far'} fa-heart"></i>
+                                Favorite
+                            </button>
+                            <button class="play" data-id="${hymn.id}">
+                                <i class="fas fa-play"></i>
+                                Play
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add event listeners to the newly created hymn cards
+            container.querySelectorAll('.hymn-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('.hymn-actions')) {
+                        const hymnId = parseInt(card.getAttribute('data-id'));
+                        openHymnDetail(hymnId);
+                    }
+                });
+            });
+
+            container.querySelectorAll('.favorite').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const hymnId = parseInt(btn.getAttribute('data-id'));
+                    toggleFavorite(hymnId);
+                });
+            });
+
+            container.querySelectorAll('.play').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const hymnId = parseInt(btn.getAttribute('data-id'));
+                    openHymnDetail(hymnId);
+                    setTimeout(() => {
+                        togglePlayback();
+                    }, 300);
+                });
+            });
+        }
+
+        // Open hymn detail view
+        function openHymnDetail(hymnId) {
+            currentHymn = hymns.find(h => h.id === hymnId);
+            if (!currentHymn) return;
+
+            detailTitle.textContent = currentHymn.title;
+            lyricsContainer.textContent = currentHymn.lyrics;
+            
+            // Update favorite button state
+            const isFavorite = favorites.includes(hymnId);
+            favoriteBtn.innerHTML = `
+                <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>
+                <span>${isFavorite ? 'Remove from' : 'Add to'} Favorites</span>
+            `;
+
+            // Update mood buttons
+            document.querySelectorAll('.mood-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.getAttribute('data-mood') === moods[hymnId]) {
+                    option.classList.add('active');
+                }
+            });
+
+            // Set up audio
+            audio.src = currentHymn.audio;
+            audio.addEventListener('loadedmetadata', () => {
+                durationEl.textContent = formatTime(audio.duration);
+            });
+            audio.addEventListener('timeupdate', updateProgress);
+            audio.addEventListener('ended', () => {
+                isPlaying = false;
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                miniPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+            });
+
+            hymnDetail.classList.add('active');
+        }
+
+        // Close hymn detail view
+        function closeHymnDetail() {
+            hymnDetail.classList.remove('active');
+            pauseAudio();
+            currentHymn = null;
+        }
+
+        // Toggle audio playback
+        function togglePlayback() {
+            if (!currentHymn) return;
+
+            if (isPlaying) {
+                pauseAudio();
+            } else {
+                playAudio();
+            }
+        }
+
+        // Play audio
+        function playAudio() {
+            if (!currentHymn) return;
+            
+            audio.play()
+                .then(() => {
+                    isPlaying = true;
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    miniPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    
+                    // Show mini player
+                    miniPlayerTitle.textContent = `Now Playing: ${currentHymn.title}`;
+                    miniPlayer.classList.remove('hidden');
+                    
+                    showToast('Audio started playing');
+                })
+                .catch(error => {
+                    console.error('Error playing audio:', error);
+                    showToast('Error playing audio');
+                });
+        }
+
+        // Pause audio
+        function pauseAudio() {
+            audio.pause();
+            isPlaying = false;
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            miniPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+            showToast('Audio paused');
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            if (!audio.duration) return;
+            
+            const progressPercent = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+        }
+
+        // Set progress on click
+        function setProgress(e) {
+            const width = this.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            
+            audio.currentTime = (clickX / width) * duration;
+        }
+
+        // Format time in mm:ss
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Toggle favorite status
+        function toggleFavorite(hymnId) {
+            const index = favorites.indexOf(hymnId);
+            
+            if (index === -1) {
+                favorites.push(hymnId);
+                showToast('Added to Favorites');
+            } else {
+                favorites.splice(index, 1);
+                showToast('Removed from Favorites');
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            updateFavoritesDisplay();
+            updateNotesDisplay();
+            updateMoodDisplay();
+            
+            // Update favorite button if viewing the hymn detail
+            if (currentHymn && currentHymn.id === hymnId) {
+                const isFavorite = favorites.includes(hymnId);
+                favoriteBtn.innerHTML = `
+                    <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>
+                    <span>${isFavorite ? 'Remove from' : 'Add to'} Favorites</span>
+                `;
+            }
+            
+            // Re-render hymns to update favorite status
+            renderHymns(hymns, hymnsContainer);
+        }
+
+        // Update favorites display
+        function updateFavoritesDisplay() {
+            const favoriteHymns = hymns.filter(hymn => favorites.includes(hymn.id));
+            renderHymns(favoriteHymns, favoritesContainer);
+        }
+
+        // Open notes modal
+        function openNotesModal() {
+            if (!currentHymn) return;
+            
+            notesTextarea.value = notes[currentHymn.id] || '';
+            notesModal.classList.add('active');
+        }
+
+        // Close notes modal
+        function closeNotesModal() {
+            notesModal.classList.remove('active');
+        }
+
+        // Save note
+        function saveNote() {
+            if (!currentHymn) return;
+            
+            const noteText = notesTextarea.value.trim();
+            if (noteText) {
+                notes[currentHymn.id] = noteText;
+                localStorage.setItem('notes', JSON.stringify(notes));
+                showToast('Note saved successfully');
+            } else {
+                delete notes[currentHymn.id];
+                localStorage.setItem('notes', JSON.stringify(notes));
+                showToast('Note cleared');
+            }
+            
+            closeNotesModal();
+            updateNotesDisplay();
+        }
+
+        // Update notes display
+        function updateNotesDisplay() {
+            const hymnsWithNotes = hymns.filter(hymn => notes[hymn.id]);
+            renderHymns(hymnsWithNotes, notesContainer);
+        }
+
+        // Set mood for current hymn
+        function setMood(mood) {
+            if (!currentHymn) return;
+            
+            moods[currentHymn.id] = mood;
+            localStorage.setItem('moods', JSON.stringify(moods));
+            
+            // Update active state on mood buttons
+            document.querySelectorAll('.mood-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            showToast(`Mood set to ${mood}`);
+        }
+
+        // Update mood display
+        function updateMoodDisplay() {
+            let filteredHymns = hymns;
+            
+            if (currentMoodFilter !== 'all') {
+                filteredHymns = hymns.filter(hymn => moods[hymn.id] === currentMoodFilter);
+            }
+            
+            renderHymns(filteredHymns, moodContainer);
+        }
+
+        // Filter hymns by search
+        function filterHymns() {
+            const query = searchInput.value.toLowerCase().trim();
+            
+            if (!query) {
+                renderHymns(hymns, hymnsContainer);
+                return;
+            }
+            
+            const filteredHymns = hymns.filter(hymn => 
+                hymn.title.toLowerCase().includes(query) || 
+                hymn.lyrics.toLowerCase().includes(query)
+            );
+            
+            renderHymns(filteredHymns, hymnsContainer);
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // Toggle dark/light mode
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            themeToggle.innerHTML = `<i class="fas fa-${isDarkMode ? 'sun' : 'moon'}"></i>`;
+        }
+
+        // Apply stored theme preference
+        function applyStoredTheme() {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        }
+
+        // Switch between pages
+        function switchPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            document.getElementById(pageId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            // Update the specific page content
+            if (pageId === 'favorites-page') {
+                updateFavoritesDisplay();
+            } else if (pageId === 'notes-page') {
+                updateNotesDisplay();
+            } else if (pageId === 'mood-page') {
+                updateMoodDisplay();
+            }
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Audio controls
+            playBtn.addEventListener('click', togglePlayback);
+            progressContainer.addEventListener('click', setProgress);
+            
+            // Mini player controls
+            miniPlayBtn.addEventListener('click', togglePlayback);
+            miniPlayerClose.addEventListener('click', () => {
+                miniPlayer.classList.add('hidden');
+                pauseAudio();
+            });
+            
+            // Hymn detail
+            detailClose.addEventListener('click', closeHymnDetail);
+            favoriteBtn.addEventListener('click', () => {
+                if (currentHymn) toggleFavorite(currentHymn.id);
+            });
+            notesBtn.addEventListener('click', openNotesModal);
+            
+            // Notes modal
+            notesSave.addEventListener('click', saveNote);
+            notesCancel.addEventListener('click', closeNotesModal);
+            notesClose.addEventListener('click', closeNotesModal);
+            
+            // Search
+            searchBtn.addEventListener('click', filterHymns);
+            searchInput.addEventListener('input', filterHymns);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') filterHymns();
+            });
+            
+            // Theme toggle
+            themeToggle.addEventListener('click', toggleTheme);
+            
+            // Navigation
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const pageId = item.getAttribute('data-page');
+                    switchPage(pageId);
+                });
+            });
+            
+            // Mood selection
+            document.querySelectorAll('.mood-option').forEach(option => {
+                option.addEventListener('click', (e) => {
+                    const mood = e.currentTarget.getAttribute('data-mood');
+                    
+                    if (hymnDetail.classList.contains('active')) {
+                        // Set mood for current hymn
+                        setMood(mood);
+                    } else {
+                        // Filter hymns by mood
+                        currentMoodFilter = mood;
+                        updateMoodDisplay();
+                        
+                        // Update active state
+                        document.querySelectorAll('.mood-option').forEach(opt => {
+                            opt.classList.remove('active');
+                        });
+                        e.currentTarget.classList.add('active');
+                    }
+                });
+            });
+            
+            // Close modal on outside click
+            notesModal.addEventListener('click', (e) => {
+                if (e.target === notesModal) {
+                    closeNotesModal();
+                }
+            });
+            
+            // Settings buttons
+            document.getElementById('export-data').addEventListener('click', exportData);
+            document.getElementById('import-data').addEventListener('click', importData);
+            document.getElementById('reset-data').addEventListener('click', resetData);
+        }
+
+        // Export data function
+        function exportData() {
+            const data = {
+                favorites: favorites,
+                notes: notes,
+                moods: moods
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'hymn-haven-data.json';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showToast('Data exported successfully');
+        }
+
+        // Import data function
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = event => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        
+                        if (data.favorites) favorites = data.favorites;
+                        if (data.notes) notes = data.notes;
+                        if (data.moods) moods = data.moods;
+                        
+                        localStorage.setItem('favorites', JSON.stringify(favorites));
+                        localStorage.setItem('notes', JSON.stringify(notes));
+                        localStorage.setItem('moods', JSON.stringify(moods));
+                        
+                        updateFavoritesDisplay();
+                        updateNotesDisplay();
+                        updateMoodDisplay();
+                        renderHymns(hymns, hymnsContainer);
+                        
+                        showToast('Data imported successfully');
+                    } catch (error) {
+                        console.error('Error importing data:', error);
+                        showToast('Error importing data');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        // Reset data function
+        function resetData() {
+            if (confirm('Are you sure you want to reset all your data? This cannot be undone.')) {
+                favorites = [];
+                notes = {};
+                moods = {};
+                
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+                localStorage.setItem('notes', JSON.stringify(notes));
+                localStorage.setItem('moods', JSON.stringify(moods));
+                
+                updateFavoritesDisplay();
+                updateNotesDisplay();
+                updateMoodDisplay();
+                renderHymns(hymns, hymnsContainer);
+                
+                showToast('All data has been reset');
+            }
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
