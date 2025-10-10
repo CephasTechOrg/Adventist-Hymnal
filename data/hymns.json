@@ -4200,12 +4200,670 @@
     "audio": "audio/hymn600.mp3",
     "mood": "calm"
   },
-   {
+  {
     "id": 601,
     "title": "Watchmen, on the Walls of Zion",
     "lyricsFile": "data/hymns/601.txt",
     "audio": "audio/hymn601.mp3",
     "mood": "calm"
+  },
+  {
+    "id": 602,
+    "title": "O Brother, Be Faithful",
+    "lyricsFile": "data/hymns/602.txt",
+    "audio": "audio/hymn602.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 603,
+    "title": "Christian, Seek Not Repose",
+    "lyricsFile": "data/hymns/603.txt",
+    "audio": "audio/hymn603.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 604,
+    "title": "We Know Not the Hour",
+    "lyricsFile": "data/hymns/604.txt",
+    "audio": "audio/hymn604.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 605,
+    "title": "My Soul, Be on Thy Guard",
+    "lyricsFile": "data/hymns/605.txt",
+    "audio": "audio/hymn605.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 606,
+    "title": "Once to Every Man and Nation",
+    "lyricsFile": "data/hymns/606.txt",
+    "audio": "audio/hymn606.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 607,
+    "title": "God of Grace and God of Glory",
+    "lyricsFile": "data/hymns/607.txt",
+    "audio": "audio/hymn607.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 608,
+    "title": "Faith Is the Victory",
+    "lyricsFile": "data/hymns/608.txt",
+    "audio": "audio/hymn608.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 609,
+    "title": "Am I a Soldier of the Cross?",
+    "lyricsFile": "data/hymns/609.txt",
+    "audio": "audio/hymn609.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 610,
+    "title": "Stand Like the Brave",
+    "lyricsFile": "data/hymns/610.txt",
+    "audio": "audio/hymn610.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 611,
+    "title": "Awake, My Soul!",
+    "lyricsFile": "data/hymns/611.txt",
+    "audio": "audio/hymn611.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 612,
+    "title": "Onward, Christian Soldiers!",
+    "lyricsFile": "data/hymns/612.txt",
+    "audio": "audio/hymn612.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 613,
+    "title": "Fight the Good Fight",
+    "lyricsFile": "data/hymns/613.txt",
+    "audio": "audio/hymn613.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 614,
+    "title": "Sound the Battle Cry",
+    "lyricsFile": "data/hymns/614.txt",
+    "audio": "audio/hymn614.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 615,
+    "title": "Rise Up, O Church of God",
+    "lyricsFile": "data/hymns/615.txt",
+    "audio": "audio/hymn615.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 616,
+    "title": "Soldiers of Christ, Arise",
+    "lyricsFile": "data/hymns/616.txt",
+    "audio": "audio/hymn616.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 617,
+    "title": "We Are Living, We Are Dwelling",
+    "lyricsFile": "data/hymns/617.txt",
+    "audio": "audio/hymn617.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 618,
+    "title": "Stand Up! Stand Up for Jesus!",
+    "lyricsFile": "data/hymns/618.txt",
+    "audio": "audio/hymn618.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 619,
+    "title": "Lead On, O King Eternal",
+    "lyricsFile": "data/hymns/619.txt",
+    "audio": "audio/hymn619.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 620,
+    "title": "On Jordan's Stormy Banks",
+    "lyricsFile": "data/hymns/620.txt",
+    "audio": "audio/hymn620.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 621,
+    "title": "Gracious Father, Guard Thy Children",
+    "lyricsFile": "data/hymns/621.txt",
+    "audio": "audio/hymn621.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 622,
+    "title": "Come, Come, Ye Saints",
+    "lyricsFile": "data/hymns/622.txt",
+    "audio": "audio/hymn622.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 623,
+    "title": "I Will Follow Thee",
+    "lyricsFile": "data/hymns/623.txt",
+    "audio": "audio/hymn623.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 624,
+    "title": "I Want Jesus to Walk With Me",
+    "lyricsFile": "data/hymns/624.txt",
+    "audio": "audio/hymn624.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 625,
+    "title": "Higher Ground",
+    "lyricsFile": "data/hymns/625.txt",
+    "audio": "audio/hymn625.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 626,
+    "title": "In a Little While We're Going Home",
+    "lyricsFile": "data/hymns/626.txt",
+    "audio": "audio/hymn626.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 627,
+    "title": "Jacob's Ladder",
+    "lyricsFile": "data/hymns/627.txt",
+    "audio": "audio/hymn627.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 628,
+    "title": "As Jacob With Travel Was Weary",
+    "lyricsFile": "data/hymns/628.txt",
+    "audio": "audio/hymn628.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 629,
+    "title": "O Happy Band of Pilgrims",
+    "lyricsFile": "data/hymns/629.txt",
+    "audio": "audio/hymn629.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 630,
+    "title": "Rise, My Soul, and Stretch Thy Wings",
+    "lyricsFile": "data/hymns/630.txt",
+    "audio": "audio/hymn630.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 631,
+    "title": "When on Life a Darkness Falls",
+    "lyricsFile": "data/hymns/631.txt",
+    "audio": "audio/hymn631.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 632,
+    "title": "Until Then",
+    "lyricsFile": "data/hymns/632.txt",
+    "audio": "audio/hymn632.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 633,
+    "title": "When We All Get to Heaven",
+    "lyricsFile": "data/hymns/633.txt",
+    "audio": "audio/hymn633.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 634,
+    "title": "Come, All Christians, Be Committed",
+    "lyricsFile": "data/hymns/634.txt",
+    "audio": "audio/hymn634.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 635,
+    "title": "Lord of All Good",
+    "lyricsFile": "data/hymns/635.txt",
+    "audio": "audio/hymn635.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 636,
+    "title": "God, Whose Giving Knows No Ending",
+    "lyricsFile": "data/hymns/636.txt",
+    "audio": "audio/hymn636.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 637,
+    "title": "Son of God, Eternal Savior",
+    "lyricsFile": "data/hymns/637.txt",
+    "audio": "audio/hymn637.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 638,
+    "title": "The Wise May Bring Their Learning",
+    "lyricsFile": "data/hymns/638.txt",
+    "audio": "audio/hymn638.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 639,
+    "title": "A Diligent and Grateful Heart",
+    "lyricsFile": "data/hymns/639.txt",
+    "audio": "audio/hymn639.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 640,
+    "title": "For Beauty of Meadows",
+    "lyricsFile": "data/hymns/640.txt",
+    "audio": "audio/hymn640.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 641,
+    "title": "God in His Love for Us",
+    "lyricsFile": "data/hymns/641.txt",
+    "audio": "audio/hymn641.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 642,
+    "title": "We Praise Thee With Our Minds",
+    "lyricsFile": "data/hymns/642.txt",
+    "audio": "audio/hymn642.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 643,
+    "title": "Father, Who on Us Do Shower",
+    "lyricsFile": "data/hymns/643.txt",
+    "audio": "audio/hymn643.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 644,
+    "title": "O God, Whose Will Is Life and Good",
+    "lyricsFile": "data/hymns/644.txt",
+    "audio": "audio/hymn644.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 645,
+    "title": "God of our fathers",
+    "lyricsFile": "data/hymns/645.txt",
+    "audio": "audio/hymn645.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 646,
+    "title": "To The Name That Brings Salvation",
+    "lyricsFile": "data/hymns/646.txt",
+    "audio": "audio/hymn646.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 647,
+    "title": "Mine Eyes Have Seen the Glory",
+    "lyricsFile": "data/hymns/647.txt",
+    "audio": "audio/hymn647.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 648,
+    "title": "I Vow to Thee, My Country",
+    "lyricsFile": "data/hymns/648.txt",
+    "audio": "audio/hymn648.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 649,
+    "title": "Lord, While for All Mankind",
+    "lyricsFile": "data/hymns/649.txt",
+    "audio": "audio/hymn649.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 650,
+    "title": "Our Father, by Whose Name",
+    "lyricsFile": "data/hymns/650.txt",
+    "audio": "audio/hymn650.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 651,
+    "title": "Happy the Home That Welcomes You",
+    "lyricsFile": "data/hymns/651.txt",
+    "audio": "audio/hymn651.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 652,
+    "title": "Love at Home",
+    "lyricsFile": "data/hymns/652.txt",
+    "audio": "audio/hymn652.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 653,
+    "title": "Lead Them, My God, to Thee",
+    "lyricsFile": "data/hymns/653.txt",
+    "audio": "audio/hymn653.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 654,
+    "title": "Lord, Bless Our Homes",
+    "lyricsFile": "data/hymns/654.txt",
+    "audio": "audio/hymn654.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 655,
+    "title": "Happy the Home",
+    "lyricsFile": "data/hymns/655.txt",
+    "audio": "audio/hymn655.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 656,
+    "title": "O Perfect Love",
+    "lyricsFile": "data/hymns/656.txt",
+    "audio": "audio/hymn656.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 657,
+    "title": "O God, From Whom Mankind",
+    "lyricsFile": "data/hymns/657.txt",
+    "audio": "audio/hymn657.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 658,
+    "title": "Heavenly Father, Hear Our Prayer",
+    "lyricsFile": "data/hymns/658.txt",
+    "audio": "audio/hymn658.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 659,
+    "title": "May the Grace of Christ Our Savior",
+    "lyricsFile": "data/hymns/659.txt",
+    "audio": "audio/hymn659.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 660,
+    "title": "Glory Be to the Father",
+    "lyricsFile": "data/hymns/660.txt",
+    "audio": "audio/hymn660.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 661,
+    "title": "Holy, Holy, Holy",
+    "lyricsFile": "data/hymns/661.txt",
+    "audio": "audio/hymn661.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 662,
+    "title": "Let All Mortal Flesh Keep Silence",
+    "lyricsFile": "data/hymns/662.txt",
+    "audio": "audio/hymn662.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 663,
+    "title": "Amens",
+    "lyricsFile": "data/hymns/663.txt",
+    "audio": "audio/hymn663.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 664,
+    "title": "Sevenfold Amen",
+    "lyricsFile": "data/hymns/664.txt",
+    "audio": "audio/hymn664.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 665,
+    "title": "All Things Come of Thee",
+    "lyricsFile": "data/hymns/665.txt",
+    "audio": "audio/hymn665.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 666,
+    "title": "Cast Thy Burden Upon the Lord",
+    "lyricsFile": "data/hymns/666.txt",
+    "audio": "audio/hymn666.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 667,
+    "title": "Lord, Bless Thy Word to Every Heart",
+    "lyricsFile": "data/hymns/667.txt",
+    "audio": "audio/hymn667.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 668,
+    "title": "O Thou Who Hearest",
+    "lyricsFile": "data/hymns/668.txt",
+    "audio": "audio/hymn668.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 669,
+    "title": "The Lord Bless You and Keep You",
+    "lyricsFile": "data/hymns/669.txt",
+    "audio": "audio/hymn669.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 670,
+    "title": "We Give Thee But Thine Own",
+    "lyricsFile": "data/hymns/670.txt",
+    "audio": "audio/hymn670.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 671,
+    "title": "Now, Dear Lord, As We Pray",
+    "lyricsFile": "data/hymns/671.txt",
+    "audio": "audio/hymn671.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 672,
+    "title": "Spirit of the Living God",
+    "lyricsFile": "data/hymns/672.txt",
+    "audio": "audio/hymn672.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 673,
+    "title": "May God Be With You",
+    "lyricsFile": "data/hymns/673.txt",
+    "audio": "audio/hymn673.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 674,
+    "title": "Shalom",
+    "lyricsFile": "data/hymns/674.txt",
+    "audio": "audio/hymn674.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 675,
+    "title": "May the Lord Bless and Keep You",
+    "lyricsFile": "data/hymns/675.txt",
+    "audio": "audio/hymn675.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 676,
+    "title": "Thy Word Is a Lantern",
+    "lyricsFile": "data/hymns/676.txt",
+    "audio": "audio/hymn676.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 677,
+    "title": "Heavenly Father, to Thee We Pray",
+    "lyricsFile": "data/hymns/677.txt",
+    "audio": "audio/hymn677.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 678,
+    "title": "God Be in My Head",
+    "lyricsFile": "data/hymns/678.txt",
+    "audio": "audio/hymn678.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 679,
+    "title": "God Be in My Head",
+    "lyricsFile": "data/hymns/679.txt",
+    "audio": "audio/hymn679.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 680,
+    "title": "Holy Spirit, Hear Us",
+    "lyricsFile": "data/hymns/680.txt",
+    "audio": "audio/hymn680.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 681,
+    "title": "This Is the Day the Lord Hath Made",
+    "lyricsFile": "data/hymns/681.txt",
+    "audio": "audio/hymn681.mp3",
+    "mood": "happy"
+  },
+  {
+    "id": 682,
+    "title": "As You Have Promised, Lord",
+    "lyricsFile": "data/hymns/682.txt",
+    "audio": "audio/hymn682.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 683,
+    "title": "Jesus, Stand Among Us",
+    "lyricsFile": "data/hymns/683.txt",
+    "audio": "audio/hymn683.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 684,
+    "title": "Hear Our Prayer O Lord",
+    "lyricsFile": "data/hymns/684.txt",
+    "audio": "audio/hymn684.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 685,
+    "title": "Cause Me to Hear",
+    "lyricsFile": "data/hymns/685.txt",
+    "audio": "audio/hymn685.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 686,
+    "title": "Bless Thou the Gifts",
+    "lyricsFile": "data/hymns/686.txt",
+    "audio": "audio/hymn686.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 687,
+    "title": "The Lord Is in His Holy Temple",
+    "lyricsFile": "data/hymns/687.txt",
+    "audio": "audio/hymn687.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 688,
+    "title": "Surely, Surely",
+    "lyricsFile": "data/hymns/688.txt",
+    "audio": "audio/hymn688.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 689,
+    "title": "Day by Day, Dear Lord",
+    "lyricsFile": "data/hymns/689.txt",
+    "audio": "audio/hymn689.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 690,
+    "title": "Dismiss Us, Lord, With Blessing",
+    "lyricsFile": "data/hymns/690.txt",
+    "audio": "audio/hymn690.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 691,
+    "title": "Lead Me, Lord",
+    "lyricsFile": "data/hymns/691.txt",
+    "audio": "audio/hymn691.mp3",
+    "mood": "calm"
+  },
+  {
+    "id": 692,
+    "title": "The Lord Is in His Holy Temple",
+    "lyricsFile": "data/hymns/692.txt",
+    "audio": "audio/hymn692.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 693,
+    "title": "Almighty Father",
+    "lyricsFile": "data/hymns/693.txt",
+    "audio": "audio/hymn693.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 694,
+    "title": "Praise God, From Whom All Blessings",
+    "lyricsFile": "data/hymns/694.txt",
+    "audio": "audio/hymn694.mp3",
+    "mood": "worshipful"
+  },
+  {
+    "id": 695,
+    "title": "Praise God, From Whom All Blessings",
+    "lyricsFile": "data/hymns/695.txt",
+    "audio": "audio/hymn695.mp3",
+    "mood": "worshipful"
   }
 
 ]
