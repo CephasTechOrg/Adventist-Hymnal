@@ -578,7 +578,7 @@ function setupEventListeners() {
     if (hymnsContainer) {
         hymnsContainer.addEventListener('click', onHymnContainerClick);
         // also support touch taps for faster mobile response
-        hymnsContainer.addEventListener('touchstart', onHymnContainerClick);
+        hymnsContainer.addEventListener('click', onHymnContainerClick);
     }
     if (favoritesContainer) favoritesContainer.addEventListener('click', onHymnContainerClick);
     if (notesContainer) notesContainer.addEventListener('click', onHymnContainerClick);
